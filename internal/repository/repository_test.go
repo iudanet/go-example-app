@@ -5,7 +5,7 @@ import (
 )
 
 func TestInMemoryMessageRepo(t *testing.T) {
-	repo := &InMemoryMessageRepo{}
+	repo := NewInMemoryMessageRepo()
 
 	// Тест установки сообщения
 	repo.SetMessage("Hello, World!")

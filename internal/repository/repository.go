@@ -5,14 +5,19 @@ type MessageRepository interface {
 	SetMessage(msg string)
 }
 
-type InMemoryMessageRepo struct {
+type inMemoryMessageRepo struct {
 	message string
 }
 
-func (repo *InMemoryMessageRepo) GetMessage() string {
+// NewInMemoryMessageRepo создает новый экземпляр MessageRepository
+func NewInMemoryMessageRepo() MessageRepository {
+	return &inMemoryMessageRepo{}
+}
+
+func (repo *inMemoryMessageRepo) GetMessage() string {
 	return repo.message
 }
 
-func (repo *InMemoryMessageRepo) SetMessage(msg string) {
+func (repo *inMemoryMessageRepo) SetMessage(msg string) {
 	repo.message = msg
 }
