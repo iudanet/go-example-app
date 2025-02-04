@@ -13,7 +13,7 @@ import (
 
 func main() {
 	repo := &repository.InMemoryMessageRepo{}
-	msgService := &service.MessageService{Repo: repo}
+	msgService := service.NewMessageService(repo)
 	msgController := controller.NewMessageController(msgService)
 	go startWorker(repo) // Запуск воркера
 	// HTTP роутинг

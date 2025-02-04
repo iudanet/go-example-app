@@ -7,15 +7,19 @@ import (
 	"github.com/iudanet/go-example-app/internal/service"
 )
 
-type MessageController struct {
-	service *service.MessageService
+type MessageController interface {
+	MessageHandler(w http.ResponseWriter, r *http.Request)
 }
 
-func NewMessageController(s *service.MessageService) *MessageController {
-	return &MessageController{service: s}
+func NewMessageController(s service.MessageService) MessageController {
+	return &messageController{service: s}
 }
 
-func (c *MessageController) MessageHandler(w http.ResponseWriter, r *http.Request) {
+type messageController struct {
+	service service.MessageService
+}
+
+func (c *messageController) MessageHandler(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Message string
 	}{
