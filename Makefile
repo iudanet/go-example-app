@@ -1,7 +1,7 @@
 test::
 	go test ./...
-run::
-	go run main.go
+run:: test
+	go run cmd/app/main.go
 
 update-deps::
 	go get -u ./...
