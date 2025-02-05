@@ -1,38 +1,19 @@
 # go-example-app
 
-## Test run
+## Запуск тестов
 
 ```bash
 go test ./...
 ```
 
+## Архитектура
 
-## Architecture
+```mermaid
+graph TD;
+    A[HTTP Server] -->|Обрабатывает запросы от пользователей| B[Web Controller<br>(HTTP Handlers)];
+    B -->|Принимает запросы| C[Service Layer<br>(Business Logic)];
+    C -->|Взаимодействует с репозиториями| D[Repository Layer<br>(Data Access)];
+    D -->|Использует хранилище данных| E[Data Source<br>(e.g., In-memory, DB)];
 
-+---------------------------+
-|       Web Controller      |
-| (HTTP Handlers)           |
-| - Receives requests       |
-| - Interacts with services |
-+---------------------------+
-            |
-            V
-+---------------------------+
-|       Service Layer       |
-| - Business Logic          |
-| - Interacts with repos    |
-+---------------------------+
-            |
-            V
-+---------------------------+
-|     Repository Layer      |
-|   (Data Access)          |
-| - In-memory storage       |
-| - Database access (if any)|
-+---------------------------+
-            |
-            V
-+---------------------------+
-|        Data Source        |
-| (e.g., In-memory, DB)    |
-+---------------------------+
+    F[Пользователь] -->|Отправляет запросы| A
+```
