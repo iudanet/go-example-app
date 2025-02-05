@@ -12,11 +12,8 @@ func Start(repo repository.MessageRepository) {
 	ticker := time.NewTicker(5 * time.Second)
 	defer ticker.Stop()
 
-	for {
-		select {
-		case <-ticker.C:
-			nodeMessage := fmt.Sprintf("Current Time: %s", time.Now().Format(time.RFC1123))
-			repo.SetMessage(nodeMessage)
-		}
+	for range ticker.C {
+		nodeMessage := fmt.Sprintf("Current Time: %s", time.Now().Format(time.RFC1123))
+		repo.SetMessage(nodeMessage)
 	}
 }

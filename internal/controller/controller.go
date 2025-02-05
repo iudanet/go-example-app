@@ -7,10 +7,12 @@ import (
 	"github.com/iudanet/go-example-app/internal/service"
 )
 
+// MessageController handles HTTP requests related to messages.
 type MessageController interface {
 	MessageHandler(w http.ResponseWriter, r *http.Request)
 }
 
+// NewMessageController creates a new instance of MessageController.
 func NewMessageController(s service.MessageService) MessageController {
 	return &messageController{service: s}
 }
@@ -19,7 +21,7 @@ type messageController struct {
 	service service.MessageService
 }
 
-func (c *messageController) MessageHandler(w http.ResponseWriter, r *http.Request) {
+func (c *messageController) MessageHandler(w http.ResponseWriter, _ *http.Request) {
 	data := struct {
 		Message string
 	}{
@@ -31,5 +33,9 @@ func (c *messageController) MessageHandler(w http.ResponseWriter, r *http.Reques
 		http.Error(w, "Unable to load template", http.StatusInternalServerError)
 		return
 	}
-	tmpl.Execute(w, data)
+	err = tmpl.Execute(w, data)
+	if err != nil {
+		http.Error(w, "Failed to execute template", http.StatusInternalServerError)
+		return
+	}
 }

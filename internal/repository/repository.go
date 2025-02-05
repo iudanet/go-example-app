@@ -1,5 +1,6 @@
 package repository
 
+// MessageRepository provides an interface for message storage and retrieval.
 type MessageRepository interface {
 	GetMessage() string
 	SetMessage(msg string)
